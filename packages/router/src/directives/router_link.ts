@@ -228,7 +228,11 @@ export class RouterLinkWithHref implements OnChanges, OnDestroy {
   }
 
   private updateTargetUrlAndHref(): void {
-    this.href = this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree));
+    try {
+      this.href = this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree));
+    } catch(_maybe_an_svg) {
+      this.setAttribute('xlink:href', this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree)));
+    }
   }
 
   get urlTree(): UrlTree {
